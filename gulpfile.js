@@ -43,13 +43,18 @@ gulp.task('bundle:prototypeBundle', bundle.prototypeBundle);
 gulp.task('icon-font', iconFont);
 
 gulp.task('templates:compile:content', templates.compile.content);
+gulp.task('templates:compile:partials', templates.compile.partials);
 gulp.task('templates:compile:styleguide', templates.compile.styleguide);
 gulp.task('templates:compile:docs', templates.compile.docs);
 
-gulp.task('templates:compile', config.styleguide ?
-  gulp.parallel('templates:compile:content', 'templates:compile:styleguide', 'templates:compile:docs') :
-  gulp.series('templates:compile:content')
-);
+var compileTasks = ['templates:compile:content'];
+if (config.partials) {
+  compileTasks.push('templates:compile:partials');
+}
+if (config.styleguide) {
+  compileTasks.push('templates:compile:styleguide', 'templates:compile:docs');
+}
+gulp.task('templates:compile', gulp.parallel(...compileTasks));
 
 gulp.task('watch', watch);
 gulp.task('copy', gulp.parallel('copy:images', 'copy:fonts', 'copy:resources', 'copy:scripts', 'copy:favicon'));
