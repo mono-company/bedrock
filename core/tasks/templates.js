@@ -57,7 +57,7 @@ function handleError(err) {
 
 module.exports = {
   clean(done) {
-    del(['./dist/**.html', './dist/modules', './dist/styleguide']).then(function () {
+    del(['./dist/**.html', './dist/modules', './dist/partials', './dist/styleguide']).then(function () {
       done();
     });
   },
