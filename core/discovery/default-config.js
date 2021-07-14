@@ -11,6 +11,11 @@ const defaultConfig = {
     layoutStyle: 'sidebar'
   },
   /**
+   *  Partials generation: this flag determines
+   *  whether the components partials get generated
+   */
+  partials: false,
+  /**
    * CSS and JS minification
    * Adjust these values to set up your project for production or dev
    */
