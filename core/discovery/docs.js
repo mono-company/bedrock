@@ -32,7 +32,7 @@ module.exports = {
           parsedFile.body = marked(parsedFile.body);
         } else if (extension === '.pug') {
           const indentedPugMarkup = parsedFile.body.split('\n').map(line => `    ${line}`).join('\n');
-          const markupWithLayout = `extends /../core/templates/layouts/sample\n\nblock content\n${indentedPugMarkup}`;
+          const markupWithLayout = `extends /core/templates/layouts/sample\n\nblock content\n${indentedPugMarkup}`;
 
           const compiler = pug.compile(markupWithLayout, Object.assign({}, config.pug, {
             filename: docPath,

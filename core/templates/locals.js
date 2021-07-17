@@ -55,7 +55,7 @@ function getDefaultLocals() {
     } else if (language === 'html') {
 
       const indentedPugMarkup = indentCode(pugMarkup);
-      const markupWithLayout = `extends /../core/templates/layouts/sample\n\nblock content\n${indentedPugMarkup}`;
+      const markupWithLayout = `extends /core/templates/layouts/sample\n\nblock content\n${indentedPugMarkup}`;
 
       // First compile Pug
       var a = pug.compile(markupWithLayout, {
@@ -74,7 +74,7 @@ function getDefaultLocals() {
       // I know we are repeating 8 lines of code from above, could be made more DRY
 
       const indentedPugMarkup = pugMarkup.split('\n').map(line => `    ${line}`).join('\n');
-      const markupWithLayout = `extends /../core/templates/layouts/sample\n\nblock content\n${indentedPugMarkup}`;
+      const markupWithLayout = `extends /core/templates/layouts/sample\n\nblock content\n${indentedPugMarkup}`;
 
       // First compile Pug
       var compiledPug = pug.compile(markupWithLayout, {
