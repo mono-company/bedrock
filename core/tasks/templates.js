@@ -20,6 +20,10 @@ const paths = require('../paths');
 const locals = require('../templates/locals');
 const docs = require('../discovery/docs');
 
+const MultipleBaseDirs = require('../templates/multi-basedirs');
+
+config.pug.plugins = [MultipleBaseDirs()];
+
 function getDefaultLocals() {
   const defaultLocals = locals.getDefaultLocals();
   defaultLocals.docs = docs.discover();

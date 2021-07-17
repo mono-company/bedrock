@@ -9,6 +9,8 @@ const config = require('../discovery/config');
 const paths = require('../paths');
 const beautifyHTML = require('js-beautify').html;
 
+const MultipleBaseDirs = require('../templates/multi-basedirs');
+
 function indentCode(code) { return code.split('\n').map(line => `    ${line}`).join('\n'); }
 
 
@@ -58,7 +60,8 @@ function getDefaultLocals() {
       var a = pug.compile(markupWithLayout, {
         pretty: true,
         basedir: 'content',
-        filename: componentFileLocation
+        filename: componentFileLocation,
+        plugins: [MultipleBaseDirs()]
       })(locals);
 
       // Then beautify with JS beautify settings
@@ -76,7 +79,8 @@ function getDefaultLocals() {
       var compiledPug = pug.compile(markupWithLayout, {
         pretty: true,
         basedir: 'content',
-        filename: componentFileLocation
+        filename: componentFileLocation,
+        plugins: [MultipleBaseDirs()]
       })(locals);
 
       const reactFunctionBegin = `{/* Note that this is merely a starting point for a real React component */}
