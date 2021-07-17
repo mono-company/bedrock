@@ -29,6 +29,7 @@ function getDefaultLocals() {
 
   const locals = {
     basedir: './content/',
+    plugins: [MultipleBaseDirs()],
     contentData: contentData.discover(),
     components: components.discover(),
     pages: pages.discover(),
