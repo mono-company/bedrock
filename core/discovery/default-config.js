@@ -58,20 +58,30 @@ const defaultConfig = {
     }
   },
   /**
-   *  Icon
-   *  Set up whether Bedrock should generate icon fonts
-   *  Set up CSS classnames for SVG icons and icon font
+   *  Icon font
+   *  Set up CSS class prefix
    */
-  icons: {
-    generateIconFont: false,
-    iconFontPath: "./content/scss/_icon-font.scss",
-    svgIconClassPrefix: 'o-svg-icon',
-    iconFontClassPrefix: 'if'
+  iconFont: {
+    outputPath: "./content/postcss/icon-font.css",
+    classPrefix: 'if'
   },
+  /**
+   *  SVG icons
+   *  Set up CSS class
+   */
+  svgIcons: {
+    classPrefix: 'o-svg-icon'
+  },
+  /**
+   *  Pug
+   */
   pug: {
     pretty: true,
     basedir: "./content"
   },
+  /**
+   *  Prettify
+   */
   prettify: {
     indentWithTabs: true,
     preserveNewlines: true,

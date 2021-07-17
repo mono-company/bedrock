@@ -11,7 +11,7 @@ const config = require('../discovery/config');
 const errors = require('../util/errors');
 const paths = require('../paths');
 
-var svgIconClassPrefix = config.icons && config.icons.svgIconClassPrefix || 'svg-icon'
+var svgIconClassPrefix = config.icons && config.svgIcons.classPrefix || 'svg-icon'
 
 if (config.css.compiler == "postcss") {
   var sources = [paths.core.scss.prototype, paths.core.scss.prism]

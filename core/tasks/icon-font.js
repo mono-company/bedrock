@@ -13,15 +13,15 @@ const paths = require('../paths');
 const FONT_NAME = 'icon-font';
 const TMP_DIRECTORY = './icon-font-tmp';
 
-const iconFontClassPrefix = config.icons && config.icons.iconFontClassPrefix || 'if';
-const destFolder = path.dirname(config.icons.iconFontPath)
-const fileName = path.basename(config.icons.iconFontPath, path.extname(config.icons.iconFontPath))
+const iconFontClassPrefix = config.icons && config.iconFont.classPrefix || 'if';
+const destFolder = path.dirname(config.iconFont.outputPath)
+const fileName = path.basename(config.iconFont.outputPath, path.extname(config.iconFont.outputPath))
 
 const cmd = `npx icon-font-generator ${paths.content.iconFont.sourceDirectory}/*.svg -n ${FONT_NAME} -o ${TMP_DIRECTORY} --html false -j false -p ${iconFontClassPrefix} --normalize --height 768 --descent 128 --types woff,woff2`;
 
 module.exports = function (done) {
 
-  if (!config.icons.generateIconFont) {
+  if (!config.iconFont) {
     return done();
   }
 
@@ -37,7 +37,12 @@ module.exports = function (done) {
         .src(path.join(TMP_DIRECTORY, FONT_NAME + '.css'))
         .pipe(rename(function (path) {
           path.basename = fileName;
-          path.extname = '.scss';
+          if (config.css.compiler == "scss") {
+            path.extname = '.scss';
+          }
+          if (config.css.compiler == "postcss") {
+            path.extname = '.css';
+          }
         }))
         .pipe(replace('./', '/fonts/'))
         .pipe(gulp.dest(destFolder)),

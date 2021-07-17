@@ -5,7 +5,7 @@ mixin iconCategory(category, name, mode)
                 +icon([category, icon.name].join('/'))
                 code= icon.name
 
-    - var iconFontClassPrefix = config.icons && config.icons.iconFontClassPrefix || 'if';
+    - var iconFontClassPrefix = config.icons && config.iconFont.classPrefix || 'if';
 
     if mode === 'icon-font'
         each icon in icons.iconFont
