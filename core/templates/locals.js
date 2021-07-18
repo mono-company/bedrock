@@ -9,6 +9,8 @@ const config = require('../discovery/config');
 const paths = require('../paths');
 const beautifyHTML = require('js-beautify').html;
 
+const MultipleBaseDirs = require('../templates/multi-basedirs');
+
 function indentCode(code) { return code.split('\n').map(line => `    ${line}`).join('\n'); }
 
 
@@ -27,6 +29,7 @@ function getDefaultLocals() {
 
   const locals = {
     basedir: './content/',
+    plugins: [MultipleBaseDirs()],
     contentData: contentData.discover(),
     components: components.discover(),
     pages: pages.discover(),
@@ -52,13 +55,14 @@ function getDefaultLocals() {
     } else if (language === 'html') {
 
       const indentedPugMarkup = indentCode(pugMarkup);
-      const markupWithLayout = `extends /../core/templates/layouts/sample\n\nblock content\n${indentedPugMarkup}`;
+      const markupWithLayout = `extends /core/templates/layouts/sample\n\nblock content\n${indentedPugMarkup}`;
 
       // First compile Pug
       var a = pug.compile(markupWithLayout, {
         pretty: true,
         basedir: 'content',
-        filename: componentFileLocation
+        filename: componentFileLocation,
+        plugins: [MultipleBaseDirs()]
       })(locals);
 
       // Then beautify with JS beautify settings
@@ -70,13 +74,14 @@ function getDefaultLocals() {
       // I know we are repeating 8 lines of code from above, could be made more DRY
 
       const indentedPugMarkup = pugMarkup.split('\n').map(line => `    ${line}`).join('\n');
-      const markupWithLayout = `extends /../core/templates/layouts/sample\n\nblock content\n${indentedPugMarkup}`;
+      const markupWithLayout = `extends /core/templates/layouts/sample\n\nblock content\n${indentedPugMarkup}`;
 
       // First compile Pug
       var compiledPug = pug.compile(markupWithLayout, {
         pretty: true,
         basedir: 'content',
-        filename: componentFileLocation
+        filename: componentFileLocation,
+        plugins: [MultipleBaseDirs()]
       })(locals);
 
       const reactFunctionBegin = `{/* Note that this is merely a starting point for a real React component */}

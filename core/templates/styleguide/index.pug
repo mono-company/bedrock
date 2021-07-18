@@ -11,7 +11,7 @@ block body
 
             .br-styleguide-header
                 if styleguideBrandCustomTemplate
-                    include ../../../content/docs/templates/styleguide-custom-brand-template
+                    include /docs/templates/styleguide-custom-brand-template
                 else
                     if styleguideLogoAsImage
                         a(href=styleguideBrandLink?styleguideBrandLink:"")
@@ -23,7 +23,7 @@ block body
             if config.styleguide.search
                 .br-styleguide-search
                     if styleguideSearchCustomTemplate
-                        include ../../../content/docs/templates/styleguide-custom-search-template
+                        include /docs/templates/styleguide-custom-search-template
                     else
                         input#styleguideSearch(type="search" placeholder=styleguideSearchPlaceholderString class=styleguideInputClass)
 

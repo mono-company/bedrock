@@ -13,6 +13,8 @@ const config = require('./config');
 const locals = require('../templates/locals');
 const paths = require('../paths');
 
+const MultipleBaseDirs = require('../templates/multi-basedirs');
+
 module.exports = {
   discover: function () {
     const docFiles = glob.sync(paths.content.docs)
@@ -30,10 +32,11 @@ module.exports = {
           parsedFile.body = marked(parsedFile.body);
         } else if (extension === '.pug') {
           const indentedPugMarkup = parsedFile.body.split('\n').map(line => `    ${line}`).join('\n');
-          const markupWithLayout = `extends /../core/templates/layouts/sample\n\nblock content\n${indentedPugMarkup}`;
+          const markupWithLayout = `extends /core/templates/layouts/sample\n\nblock content\n${indentedPugMarkup}`;
 
           const compiler = pug.compile(markupWithLayout, Object.assign({}, config.pug, {
-            filename: docPath
+            filename: docPath,
+            plugins: [MultipleBaseDirs()]
           }));
           parsedFile.body = compiler(Object.assign({}, locals.getDefaultLocals(), {
             pathname: `styleguide/docs/${filename}`

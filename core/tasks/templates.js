@@ -20,6 +20,12 @@ const paths = require('../paths');
 const locals = require('../templates/locals');
 const docs = require('../discovery/docs');
 
+const MultipleBaseDirs = require('../templates/multi-basedirs');
+
+config.pug.plugins = [MultipleBaseDirs()];
+
+const bedrockDir = path.join(__dirname, '../../');
+
 function getDefaultLocals() {
   const defaultLocals = locals.getDefaultLocals();
   defaultLocals.docs = docs.discover();
@@ -38,7 +44,7 @@ module.exports = {
 
       const tasks = Object.keys(defaultLocals.components.byGroup).map(componentGroup => {
         return gulp.src([
-            paths.core.templates.styleguide.componentGroup
+            path.join(bedrockDir, paths.core.templates.styleguide.componentGroup)
           ])
           .pipe(data(function (file) {
             return Object.assign({}, getDefaultLocals(), {
@@ -56,7 +62,7 @@ module.exports = {
 
       tasks.push(
         gulp.src([
-            paths.core.templates.styleguide.index
+            path.join(bedrockDir, paths.core.templates.styleguide.index)
           ])
           .pipe(data(function (file) {
             return Object.assign({}, getDefaultLocals(), {
@@ -78,7 +84,9 @@ module.exports = {
       const defaultLocals = getDefaultLocals();
 
       const tasks = defaultLocals.docs.allDocs.map(doc => {
-        return gulp.src(paths.core.templates.styleguide.doc)
+        return gulp.src(
+            path.join(bedrockDir, paths.core.templates.styleguide.doc)
+	  )
           .pipe(data(function (file) {
             return Object.assign({}, getDefaultLocals(), {
               doc,
